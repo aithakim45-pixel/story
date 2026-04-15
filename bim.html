@@ -48,29 +48,29 @@
     <section class="intro-outro-section">
         <img src="logo.png" alt="Gulf Structural Design Logo" class="company-logo">
         <h1 class="main-title">Seamless BIM Integration</h1>
-        <p class="hero-desc">Make remodeling a thing of the past. IDEA StatiCa's BIM links enable seamless export and synchronization of structural data from your CAD and FEA software, reducing errors and repetitive tasks.</p>
+        <p class="hero-desc">Make remodeling a thing of the past. IDEA StatiCa's BIM links enable seamless export and synchronization of structural data from your CAD and FEA software.</p>
         <p class="scroll-prompt">SCROLL TO EXPLORE WORKFLOWS ↓</p>
     </section>
 
     <section class="feature-row from-left">
-        <div class="media-box"><video src="checkbot-import.mp4" autoplay loop muted playsinline></video></div>
-        <div class="text-box">
+        <div class="media-box reveal-media"><video src="checkbot-import.mp4" autoplay loop muted playsinline></video></div>
+        <div class="text-box reveal-text">
             <h2>IDEA STATICA <span>CHECKBOT</span></h2>
-            <p>Import and visualize. Checkbot enables 3D visualization of imported loads and members, management of load combinations, and full control over data synchronization directly from your FEA or CAD models.</p>
+            <p>Import and visualize. Checkbot enables 3D visualization of imported loads and members, management of load combinations, and full control over data synchronizationdirectly from your FEA or CAD models.</p>
         </div>
     </section>
 
     <section class="feature-row reverse from-right">
-        <div class="media-box"><img src="cloud-viewer.png" alt="Viewer Cloud App"></div>
-        <div class="text-box">
+        <div class="media-box reveal-media"><img src="cloud-viewer.png" alt="Viewer Cloud App"></div>
+        <div class="text-box reveal-text">
             <h2>FREE CLOUD <span>VIEWER</span></h2>
             <p>Need to share a project with a colleague without a license? Simply send them the connection file. They can open it in our free cloud app to render, visualize, and review accurate dimensions, loads, and materials.</p>
         </div>
     </section>
 
     <section class="feature-row from-left">
-        <div class="media-box"><img src="checkbot-free.png" alt="Checkbot Free Sharing"></div>
-        <div class="text-box">
+        <div class="media-box reveal-media"><img src="checkbot-free.png" alt="Checkbot Free Sharing"></div>
+        <div class="text-box reveal-text">
             <h2>CHECKBOT <span>FREE</span></h2>
             <p>Meet your data sharing hub. If you are collaborating with a detailer or supplier who doesn't have an IDEA StatiCa license, Checkbot Free allows them to export and share essential data directly from their CAD software.</p>
         </div>
@@ -89,17 +89,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
         const lenis = new Lenis()
-        lenis.on('scroll', (e) => { ScrollTrigger.update(); })
+        lenis.on('scroll', ScrollTrigger.update)
         gsap.ticker.add((time) => { lenis.raf(time * 1000) })
         gsap.ticker.lagSmoothing(0)
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.utils.toArray('.from-left').forEach(section => {
-            gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" }, x: -150, opacity: 0, duration: 1, ease: "power3.out" });
-        });
+        gsap.utils.toArray('.feature-row').forEach(row => {
+            const media = row.querySelector('.reveal-media');
+            const text = row.querySelector('.reveal-text');
+            const fromLeft = row.classList.contains('from-left');
 
-        gsap.utils.toArray('.from-right').forEach(section => {
-            gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" }, x: 150, opacity: 0, duration: 1, ease: "power3.out" });
+            gsap.set(media, { x: fromLeft ? -100 : 100, scale: 0.9, opacity: 0 });
+            gsap.set(text, { y: 50, opacity: 0 });
+
+            const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 80%", toggleActions: "play none none reverse" } });
+            tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 1.5, ease: "expo.out" })
+              .to(text, { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, "-=1");
         });
     </script>
 </body>
