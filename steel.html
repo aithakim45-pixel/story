@@ -48,29 +48,29 @@
     <section class="intro-outro-section">
         <img src="logo.png" alt="Gulf Structural Design Logo" class="company-logo">
         <h1 class="main-title">Steel Connection & Member Design</h1>
-        <p class="hero-desc">Refine your connection and member designs, from welded and bolted connections to base plates, for both simple and complex structures. Obtain clear pass/fail results per AISC and EN standards.</p>
+        <p class="hero-desc">Refine your connection and member designs, from welded and bolted connections to base plates, for both simple and complex structures.</p>
         <p class="scroll-prompt">SCROLL TO EXPLORE ↓</p>
     </section>
 
     <section class="feature-row from-left">
-        <div class="media-box"><video src="steel-connection.mp4" autoplay loop muted playsinline></video></div>
-        <div class="text-box">
+        <div class="media-box reveal-media"><video src="steel-connection.mp4" autoplay loop muted playsinline></video></div>
+        <div class="text-box reveal-text">
             <h2>IDEA STATICA <span>CONNECTION</span></h2>
             <p>Design steel connections quickly with pass/fail checks and reduce design time by up to 80%. Perform analyses like buckling and stiffness, create detailed reports, and integrate your CAD and FEA software.</p>
         </div>
     </section>
 
     <section class="feature-row reverse from-right">
-        <div class="media-box"><video src="steel-member.mp4" autoplay loop muted playsinline></video></div>
-        <div class="text-box">
+        <div class="media-box reveal-media"><video src="steel-member.mp4" autoplay loop muted playsinline></video></div>
+        <div class="text-box reveal-text">
             <h2>IDEA STATICA <span>MEMBER</span></h2>
             <p>Optimize and code-check your steel member designs by visualizing stress, strain, buckling, and stiffness using nonlinear analysis. Integrate Member with your original designs and streamline your workflows.</p>
         </div>
     </section>
 
     <section class="feature-row from-left">
-        <div class="media-box"><img src="connection-library.png" alt="Connection Library"></div>
-        <div class="text-box">
+        <div class="media-box reveal-media"><img src="connection-library.png" alt="Connection Library"></div>
+        <div class="text-box reveal-text">
             <h2>CONNECTION <span>LIBRARY</span></h2>
             <p>The IDEA StatiCa Connection Library offers you an extensive collection of over 700,000 verified steel connection designs you can browse and download, providing ready-made solutions for complex challenges.</p>
         </div>
@@ -89,17 +89,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
         const lenis = new Lenis()
-        lenis.on('scroll', (e) => { ScrollTrigger.update(); })
+        lenis.on('scroll', ScrollTrigger.update)
         gsap.ticker.add((time) => { lenis.raf(time * 1000) })
         gsap.ticker.lagSmoothing(0)
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.utils.toArray('.from-left').forEach(section => {
-            gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" }, x: -150, opacity: 0, duration: 1, ease: "power3.out" });
-        });
+        gsap.utils.toArray('.feature-row').forEach(row => {
+            const media = row.querySelector('.reveal-media');
+            const text = row.querySelector('.reveal-text');
+            const fromLeft = row.classList.contains('from-left');
 
-        gsap.utils.toArray('.from-right').forEach(section => {
-            gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" }, x: 150, opacity: 0, duration: 1, ease: "power3.out" });
+            gsap.set(media, { x: fromLeft ? -100 : 100, scale: 0.9, opacity: 0 });
+            gsap.set(text, { y: 50, opacity: 0 });
+
+            const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 80%", toggleActions: "play none none reverse" } });
+            tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 1.5, ease: "expo.out" })
+              .to(text, { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, "-=1");
         });
     </script>
 </body>
