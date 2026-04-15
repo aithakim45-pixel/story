@@ -11,37 +11,23 @@
         .lenis.lenis-smooth { scroll-behavior: auto; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
+        
         .intro-outro-section { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 5%; text-align: center; }
         .company-logo { max-width: 280px; margin-bottom: 30px; }
         .main-title { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; text-transform: uppercase; letter-spacing: 2px; }
         .hero-desc { color: #aaaaaa; font-size: 1.2rem; max-width: 800px; margin-bottom: 40px; line-height: 1.6; }
         .scroll-prompt { color: #ff5e14; font-weight: bold; letter-spacing: 1px; font-size: 1.1rem; }
-        .pinned-container { display: flex; width: 100%; position: relative; }
-        .media-side { width: 50%; height: 100vh; display: flex; align-items: center; justify-content: center; background: #111111; z-index: 2; }
-        .media-side img, .media-side video { position: absolute; max-width: 90%; max-height: 90%; border-radius: 8px; object-fit: cover; box-shadow: 0px 10px 30px rgba(0,0,0,0.5); }
-        .text-side { width: 50%; display: flex; flex-direction: column; z-index: 1; }
-        .scroll-step { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; opacity: 0.3; transition: opacity 0.4s ease; }
-        .scroll-step.active { opacity: 1; }
-        .scroll-step h2 { font-size: 2.8rem; margin-bottom: 20px; color: #ffffff; }
-        .scroll-step h2 span { color: #ff5e14; }
-        .scroll-step p { font-size: 1.3rem; line-height: 1.6; color: #cccccc; }
 
-        /* NAVIGATION BAR STYLING */
-        .main-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 5%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        .feature-row { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10%; gap: 5%; overflow: hidden; }
+        .feature-row.reverse { flex-direction: row-reverse; }
+        .media-box { flex: 1; display: flex; justify-content: center; }
+        .media-box img, .media-box video { max-width: 100%; border-radius: 8px; box-shadow: 0px 10px 30px rgba(0,0,0,0.5); object-fit: cover; }
+        .text-box { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .text-box h2 { font-size: 3rem; margin-bottom: 20px; color: #ffffff; }
+        .text-box h2 span { color: #ff5e14; }
+        .text-box p { font-size: 1.3rem; line-height: 1.6; color: #cccccc; }
+
+        .main-nav { position: fixed; top: 0; left: 0; width: 100%; padding: 20px 5%; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-logo { color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1.5rem; letter-spacing: 2px; }
         .nav-links a { color: #cccccc; text-decoration: none; margin-left: 30px; font-size: 1.1rem; transition: color 0.3s; text-transform: uppercase; font-weight: 500; }
         .nav-links a:hover { color: #ff5e14; }
@@ -66,27 +52,29 @@
         <p class="scroll-prompt">SCROLL TO EXPLORE ↓</p>
     </section>
 
-    <div class="pinned-container" id="scrolly-container">
-        <div class="media-side" id="media-panel">
-            <video src="steel-connection.mp4" id="media-1" style="opacity: 1;" autoplay loop muted playsinline></video>
-            <video src="steel-member.mp4" id="media-2" style="opacity: 0;" autoplay loop muted playsinline></video>
-            <img src="connection-library.png" alt="Connection Library Database" id="media-3" style="opacity: 0;">
+    <section class="feature-row from-left">
+        <div class="media-box"><video src="steel-connection.mp4" autoplay loop muted playsinline></video></div>
+        <div class="text-box">
+            <h2>IDEA STATICA <span>CONNECTION</span></h2>
+            <p>Design steel connections quickly with pass/fail checks and reduce design time by up to 80%. Perform analyses like buckling and stiffness, create detailed reports, and integrate your CAD and FEA software.</p>
         </div>
-        <div class="text-side" id="text-panel">
-            <div class="scroll-step" id="step-1">
-                <h2>IDEA STATICA <span>CONNECTION</span></h2>
-                <p>Design steel connections quickly with pass/fail checks and reduce design time by up to 80%. Perform analyses like buckling and stiffness, create detailed reports, and integrate your CAD and FEA software with our extensive BIM links.</p>
-            </div>
-            <div class="scroll-step" id="step-2">
-                <h2>IDEA STATICA <span>MEMBER</span></h2>
-                <p>Optimize and code-check your steel member designs by visualizing stress, strain, buckling, and stiffness using nonlinear analysis. Integrate Member with your original designs, streamline your workflows, and enhance your entire design process.</p>
-            </div>
-            <div class="scroll-step" id="step-3">
-                <h2>CONNECTION <span>LIBRARY</span></h2>
-                <p>The IDEA StatiCa Connection Library offers you an extensive collection of over 700,000 verified steel connection designs you can browse and download, providing you ready-made solutions for any complex connection challenges.</p>
-            </div>
+    </section>
+
+    <section class="feature-row reverse from-right">
+        <div class="media-box"><video src="steel-member.mp4" autoplay loop muted playsinline></video></div>
+        <div class="text-box">
+            <h2>IDEA STATICA <span>MEMBER</span></h2>
+            <p>Optimize and code-check your steel member designs by visualizing stress, strain, buckling, and stiffness using nonlinear analysis. Integrate Member with your original designs and streamline your workflows.</p>
         </div>
-    </div>
+    </section>
+
+    <section class="feature-row from-left">
+        <div class="media-box"><img src="connection-library.png" alt="Connection Library"></div>
+        <div class="text-box">
+            <h2>CONNECTION <span>LIBRARY</span></h2>
+            <p>The IDEA StatiCa Connection Library offers you an extensive collection of over 700,000 verified steel connection designs you can browse and download, providing ready-made solutions for complex challenges.</p>
+        </div>
+    </section>
 
     <section class="intro-outro-section">
         <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to optimize your steel designs?</h2>
@@ -106,24 +94,13 @@
         gsap.ticker.lagSmoothing(0)
         gsap.registerPlugin(ScrollTrigger);
 
-        ScrollTrigger.create({ trigger: "#scrolly-container", start: "top top", end: "bottom bottom", pin: "#media-panel" });
-
-        const steps = gsap.utils.toArray('.scroll-step');
-        const medias = ['#media-1', '#media-2', '#media-3'];
-
-        steps.forEach((step, i) => {
-            ScrollTrigger.create({ trigger: step, start: "top center", end: "bottom center", onEnter: () => updateMediaAndText(i, step), onEnterBack: () => updateMediaAndText(i, step) });
+        gsap.utils.toArray('.from-left').forEach(section => {
+            gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" }, x: -150, opacity: 0, duration: 1, ease: "power3.out" });
         });
 
-        function updateMediaAndText(index, stepElement) {
-            steps.forEach(s => s.classList.remove('active')); stepElement.classList.add('active');
-            medias.forEach((mediaId, i) => { if(i === index) { gsap.to(mediaId, {opacity: 1, duration: 0.5, ease: "power2.inOut"}); } else { gsap.to(mediaId, {opacity: 0, duration: 0.5, ease: "power2.inOut"}); } });
-            if (index === 1) { 
-                gsap.to('#media-panel', { x: "100%", duration: 0.8, ease: "power3.inOut" }); gsap.to('#text-panel', { x: "-100%", duration: 0.8, ease: "power3.inOut" });
-            } else { 
-                gsap.to('#media-panel', { x: "0%", duration: 0.8, ease: "power3.inOut" }); gsap.to('#text-panel', { x: "0%", duration: 0.8, ease: "power3.inOut" });
-            }
-        }
+        gsap.utils.toArray('.from-right').forEach(section => {
+            gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" }, x: 150, opacity: 0, duration: 1, ease: "power3.out" });
+        });
     </script>
 </body>
 </html>
