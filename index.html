@@ -18,13 +18,9 @@
         /* General Layout */
         .intro-outro-section { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
-        /* Company Logo Styling */
-        .company-logo {
-            max-width: 250px; /* Adjust size as needed */
-            margin-bottom: 40px;
-            /* Optional: if your logo is dark, this adds a subtle glow so it's visible on the black background */
-            /* filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.2)); */ 
-        }
+        /* Hero Title Styling */
+        .main-title { font-size: 4rem; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
+        .subtitle { color: #888; font-size: 1.2rem; }
 
         /* Scrollytelling Container */
         .pinned-container {
@@ -82,11 +78,9 @@
 <body>
 
     <section class="intro-outro-section">
-        <div style="text-align: center;">
-            <img src="logo.png" alt="Gulf Structural Design Logo" class="company-logo">
-            
-            <h1>Advanced Structural Design</h1>
-            <p style="margin-top: 10px; color: #888;">Scroll down to explore the workflow</p>
+        <div style="text-align: center; padding: 0 20px;">
+            <h1 class="main-title">Advanced Structural Design</h1>
+            <p class="subtitle">Scroll down to explore the workflow ↓</p>
         </div>
     </section>
 
