@@ -3,8 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gulf Structural Design - Workflow</title>
+    <title>Gulf Structural Design</title>
     <style>
+        /* Reset and basic typography */
+        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        h1, h2, p { margin: 0; }
+
+        /* Lenis required CSS for smooth scrolling */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        /* General Layout */
+        .intro-outro-section { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 5%; text-align: center; }
+        
+        /* Company Logo Styling */
+        .company-logo {
+            max-width: 280px; 
+            margin-bottom: 30px; 
+        }
+
+        /* Hero Title Styling */
+        .main-title { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; text-transform: uppercase; letter-spacing: 2px; }
+        .hero-desc { color: #aaaaaa; font-size: 1.2rem; max-width: 800px; margin-bottom: 40px; line-height: 1.6; }
+        .scroll-prompt { color: #ff5e14; font-weight: bold; letter-spacing: 1px; font-size: 1.1rem; }
+
+        /* Scrollytelling Container */
+        .pinned-container {
+            display: flex;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Fixed Media Side */
+        .media-side {
+            width: 50%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111111;
+            z-index: 2; 
+        }
+        .media-side img, .media-side video {
+            position: absolute;
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Scrolling Text Side */
+        .text-side {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+        }
+        .scroll-step {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            opacity: 0.3;
+            transition: opacity 0.4s ease;
+        }
+        .scroll-step.active { opacity: 1; }
+        .scroll-step h2 { font-size: 2.8rem; margin-bottom: 20px; color: #ffffff; }
+        .scroll-step h2 span { color: #ff5e14; }
+        .scroll-step p { font-size: 1.3rem; line-height: 1.6; color: #cccccc; }
+
         /* NAVIGATION BAR STYLING */
         .main-nav {
             position: fixed;
@@ -16,9 +87,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 10, 0.85); /* Semi-transparent black */
-            backdrop-filter: blur(10px); /* Blurs the background as you scroll */
-            z-index: 1000; /* Keeps it on top of everything */
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .nav-logo {
@@ -38,124 +109,57 @@
             font-weight: 500;
         }
         .nav-links a:hover {
-            color: #ff5e14; /* Your brand orange */
+            color: #ff5e14;
         }
-        /* Reset and basic typography */
-        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; }
-        h1, h2, p { margin: 0; }
-
-        /* Lenis required CSS for smooth scrolling */
-        html.lenis { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto; }
-        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-        .lenis.lenis-stopped { overflow: hidden; }
-
-        /* General Layout */
-        .intro-outro-section { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        
-        /* Company Logo Styling */
-        .company-logo {
-            max-width: 280px; /* You can make this number larger or smaller to fit your logo perfectly */
-            margin-bottom: 25px; /* Adds a nice gap between the logo and the title */
-        }
-
-        /* Hero Title Styling */
-        .main-title { font-size: 4rem; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
-        .subtitle { color: #888; font-size: 1.2rem; }
-
-        /* Scrollytelling Container */
-        .pinned-container {
-            display: flex;
-            width: 100%;
-            position: relative;
-        }
-
-        /* LEFT SIDE (Default): Fixed Media */
-        .media-side {
-            width: 50%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #111111;
-            z-index: 2; /* Keeps media above the text when swapping */
-        }
-
-        /* Styling for your custom media */
-        .media-side img, .media-side video {
-            position: absolute;
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-            object-fit: cover;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
-        }
-
-        /* RIGHT SIDE (Default): Scrolling Text */
-        .text-side {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            z-index: 1;
-        }
-
-        .scroll-step {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-            opacity: 0.3;
-            transition: opacity 0.4s ease;
-        }
-
-        /* Class added by JavaScript when scrolled into view */
-        .scroll-step.active { opacity: 1; }
-
-        .scroll-step h2 { font-size: 2.5rem; margin-bottom: 20px; color: #ff5e14; }
-        .scroll-step p { font-size: 1.2rem; line-height: 1.6; color: #e0e0e0; }
     </style>
 </head>
 <body>
 
-    <section class="intro-outro-section">
-        <div style="text-align: center; padding: 0 20px;">
-            <img src="logo.png" alt="Gulf Structural Design Logo" class="company-logo">
-            <h1 class="main-title">Advanced Structural Design</h1>
-            <p class="subtitle">Scroll down to explore the workflow ↓</p>
+    <nav class="main-nav">
+        <a href="index.html" class="nav-logo">GSD IDEA</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="steel.html">Steel</a>
+            <a href="concrete.html">Concrete</a>
+            <a href="bim.html">BIM</a>
         </div>
+    </nav>
+
+    <section class="intro-outro-section">
+        <img src="logo.png" alt="Gulf Structural Design Logo" class="company-logo">
+        <h1 class="main-title">Your Innovative Structural Design Software Vendor</h1>
+        <p class="hero-desc">IDEA StatiCa provides advanced tools for structural engineers, enabling the precise design and analysis of complex steel connections, structural steel members, and concrete D-regions. Utilizing cutting-edge, university-verified CBFEM and CSFM methods.</p>
+        <p class="scroll-prompt">SCROLL TO EXPLORE ↓</p>
     </section>
 
     <div class="pinned-container" id="scrolly-container">
-        
         <div class="media-side" id="media-panel">
-            <img src="step1-connection.png" alt="Steel Connection" id="media-1" style="opacity: 1;">
-            <video src="step2-analysis.mp4" id="media-2" style="opacity: 0;" autoplay loop muted playsinline></video>
-            <img src="step3-bom-report.png" alt="BOM Report" id="media-3" style="opacity: 0;">
+            <video src="steel-video.mp4" id="media-1" style="opacity: 1;" autoplay loop muted playsinline></video>
+            <video src="concrete-video.mp4" id="media-2" style="opacity: 0;" autoplay loop muted playsinline></video>
+            <img src="bim-workflow.png" alt="BIM Workflow" id="media-3" style="opacity: 0;">
         </div>
-
         <div class="text-side" id="text-panel">
             <div class="scroll-step" id="step-1">
-                <h2>1. Complex Geometry Made Simple</h2>
-                <p>Traditional hand calculations fall short for complex joints. Import your geometry directly from standard CAD software and visualize the exact node seamlessly.</p>
+                <h2>IDEA STATICA <span>STEEL</span></h2>
+                <p>Perform accurate steel connection and member design of any complexity. From welded and bolted structural steel connections to base plates, refine your connection and member designs efficiently and ahead of schedule.</p>
             </div>
-
             <div class="scroll-step" id="step-2">
-                <h2>2. Code-Compliant Analysis</h2>
-                <p>Apply structural loads and instantly see the stress gradients, deformation, and bolt forces using advanced CBFEM technology.</p>
+                <h2>IDEA STATICA <span>DETAIL</span></h2>
+                <p>Design concrete walls, D-regions of any geometry and loading, and steel-to-concrete anchoring with real reinforcement. Perform ULS/SLS checks and detailed analysis, according to code, and optimize reinforcement.</p>
             </div>
-
             <div class="scroll-step" id="step-3">
-                <h2>3. Automated Reporting</h2>
-                <p>Generate precise Bills of Materials and export comprehensive, university-verified PDF reports in seconds to keep your engineering teams ahead of schedule.</p>
+                <h2>ADVANCED <span>BIM</span> WORKFLOWS</h2>
+                <p>Visualize imported loads and members in 3D, manage load combinations, and control the import from your analysis or BIM software and data synchronization between models (STAAD Pro, ETABS, SAP2000, and Tekla).</p>
             </div>
         </div>
     </div>
 
     <section class="intro-outro-section">
-        <div style="text-align: center;">
-            <h2 style="margin-bottom: 30px;">Ready to elevate your designs?</h2>
-            <a href="mailto:support@gsdidea.ae" style="padding: 15px 30px; background: #ff5e14; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Contact Support</a>
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to optimize your structural designs?</h2>
+        <p style="color: #aaaaaa; margin-bottom: 40px; font-size: 1.2rem;">Start your 14-day trial or book a demo with our GCC support team.</p>
+        <div style="display: flex; gap: 20px;">
+            <a href="#" style="padding: 15px 30px; background: transparent; border: 2px solid #ff5e14; color: #ff5e14; text-decoration: none; border-radius: 5px; font-weight: bold;">Download Trial</a>
+            <a href="mailto:support@gsdidea.ae" style="padding: 15px 30px; background: #ff5e14; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Book a Demo</a>
         </div>
     </section>
 
@@ -168,7 +172,6 @@
         lenis.on('scroll', (e) => { ScrollTrigger.update(); })
         gsap.ticker.add((time) => { lenis.raf(time * 1000) })
         gsap.ticker.lagSmoothing(0)
-
         gsap.registerPlugin(ScrollTrigger);
 
         ScrollTrigger.create({
@@ -192,11 +195,9 @@
         });
 
         function updateMediaAndText(index, stepElement) {
-            // Light up active text
             steps.forEach(s => s.classList.remove('active'));
             stepElement.classList.add('active');
 
-            // Crossfade media
             medias.forEach((mediaId, i) => {
                 if(i === index) {
                     gsap.to(mediaId, {opacity: 1, duration: 0.5, ease: "power2.inOut"});
@@ -205,13 +206,10 @@
                 }
             });
 
-            // LOGIC FOR THE SWAPPING LAYOUT
             if (index === 1) { 
-                // Step 2: Slide Media to the Right, Text to the Left
                 gsap.to('#media-panel', { x: "100%", duration: 0.8, ease: "power3.inOut" });
                 gsap.to('#text-panel', { x: "-100%", duration: 0.8, ease: "power3.inOut" });
             } else { 
-                // Steps 1 & 3: Slide back to default (Media Left, Text Right)
                 gsap.to('#media-panel', { x: "0%", duration: 0.8, ease: "power3.inOut" });
                 gsap.to('#text-panel', { x: "0%", duration: 0.8, ease: "power3.inOut" });
             }
