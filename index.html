@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gulf Structural Design - Workflow</title>
     <style>
+        /* NAVIGATION BAR STYLING */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.85); /* Semi-transparent black */
+            backdrop-filter: blur(10px); /* Blurs the background as you scroll */
+            z-index: 1000; /* Keeps it on top of everything */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-logo {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+        .nav-links a {
+            color: #cccccc;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: #ff5e14; /* Your brand orange */
+        }
         /* Reset and basic typography */
         body, html { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; }
         h1, h2, p { margin: 0; }
