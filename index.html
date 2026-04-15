@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gulf Structural Design</title>
     <style>
-        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; scroll-behavior: smooth; }
         h1, h2, p { margin: 0; }
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
@@ -16,7 +16,10 @@
         .company-logo { max-width: 280px; margin-bottom: 30px; }
         .main-title { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; text-transform: uppercase; letter-spacing: 2px; }
         .hero-desc { color: #aaaaaa; font-size: 1.2rem; max-width: 800px; margin-bottom: 40px; line-height: 1.6; }
-        .scroll-prompt { color: #ff5e14; font-weight: bold; letter-spacing: 1px; font-size: 1.1rem; }
+        
+        /* Interactive Scroll Link */
+        .scroll-prompt { color: #ff5e14; font-weight: bold; letter-spacing: 1px; font-size: 1.1rem; text-decoration: none; transition: 0.3s; cursor: pointer; }
+        .scroll-prompt:hover { opacity: 0.7; transform: translateY(5px); }
 
         .feature-row { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10%; gap: 5%; overflow: hidden; }
         .feature-row.reverse { flex-direction: row-reverse; }
@@ -49,10 +52,10 @@
         <img src="logo.png" alt="Gulf Structural Design Logo" class="company-logo">
         <h1 class="main-title">Your Innovative Structural Design Software Vendor</h1>
         <p class="hero-desc">IDEA StatiCa provides advanced tools for structural engineers, enabling the precise design and analysis of complex steel connections, structural steel members, and concrete D-regions.</p>
-        <p class="scroll-prompt">SCROLL TO EXPLORE ↓</p>
+        <a href="#first-section" class="scroll-prompt">SCROLL TO EXPLORE ↓</a>
     </section>
 
-    <section class="feature-row from-left">
+    <section id="first-section" class="feature-row from-left">
         <div class="media-box reveal-media"><video src="steel-video.mp4" autoplay loop muted playsinline></video></div>
         <div class="text-box reveal-text">
             <h2>IDEA STATICA <span>STEEL</span></h2>
@@ -88,35 +91,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
-        // 1. Smooth Scrolling Setup
         const lenis = new Lenis()
         lenis.on('scroll', ScrollTrigger.update)
         gsap.ticker.add((time) => { lenis.raf(time * 1000) })
         gsap.ticker.lagSmoothing(0)
         gsap.registerPlugin(ScrollTrigger);
 
-        // 2. Optimized reveal Animations
         gsap.utils.toArray('.feature-row').forEach(row => {
             const media = row.querySelector('.reveal-media');
             const text = row.querySelector('.reveal-text');
             const fromLeft = row.classList.contains('from-left');
-
-            // Set initial state (invisible and moved)
             gsap.set(media, { x: fromLeft ? -100 : 100, scale: 0.9, opacity: 0 });
             gsap.set(text, { y: 50, opacity: 0 });
-
-            // Create a timeline that triggers when section enters screen
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: row,
-                    start: "top 80%", // Triggers slightly later for better visualization
-                    toggleActions: "play none none reverse"
-                }
-            });
-
-            // Animate media first, then text, using sophisticated Expo ease
+            const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 80%", toggleActions: "play none none reverse" } });
             tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 1.5, ease: "expo.out" })
-              .to(text, { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, "-=1"); // Starts 1 second before media animation ends
+              .to(text, { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, "-=1");
         });
     </script>
 </body>
