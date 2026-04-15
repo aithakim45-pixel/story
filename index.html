@@ -16,8 +16,16 @@
         .lenis.lenis-stopped { overflow: hidden; }
 
         /* General Layout */
-        .intro-outro-section { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .intro-outro-section { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
+        /* Company Logo Styling */
+        .company-logo {
+            max-width: 250px; /* Adjust size as needed */
+            margin-bottom: 40px;
+            /* Optional: if your logo is dark, this adds a subtle glow so it's visible on the black background */
+            /* filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.2)); */ 
+        }
+
         /* Scrollytelling Container */
         .pinned-container {
             display: flex;
@@ -25,7 +33,7 @@
             position: relative;
         }
 
-        /* LEFT SIDE: Fixed Media */
+        /* LEFT SIDE (Default): Fixed Media */
         .media-side {
             width: 50%;
             height: 100vh;
@@ -33,6 +41,7 @@
             align-items: center;
             justify-content: center;
             background: #111111;
+            z-index: 2; /* Keeps media above the text when swapping */
         }
 
         /* Styling for your custom media */
@@ -45,27 +54,28 @@
             box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* RIGHT SIDE: Scrolling Text */
+        /* RIGHT SIDE (Default): Scrolling Text */
         .text-side {
             width: 50%;
             display: flex;
             flex-direction: column;
+            z-index: 1;
         }
 
         .scroll-step {
-            height: 100vh; /* Each text block takes up exactly one screen height */
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 0 10%;
-            opacity: 0.3; /* Default faded state */
+            opacity: 0.3;
             transition: opacity 0.4s ease;
         }
 
         /* Class added by JavaScript when scrolled into view */
         .scroll-step.active { opacity: 1; }
 
-        .scroll-step h2 { font-size: 2.5rem; margin-bottom: 20px; color: #ff5e14; /* Brand Accent Color */ }
+        .scroll-step h2 { font-size: 2.5rem; margin-bottom: 20px; color: #ff5e14; }
         .scroll-step p { font-size: 1.2rem; line-height: 1.6; color: #e0e0e0; }
     </style>
 </head>
@@ -73,6 +83,8 @@
 
     <section class="intro-outro-section">
         <div style="text-align: center;">
+            <img src="logo.png" alt="Gulf Structural Design Logo" class="company-logo">
+            
             <h1>Advanced Structural Design</h1>
             <p style="margin-top: 10px; color: #888;">Scroll down to explore the workflow</p>
         </div>
@@ -81,17 +93,12 @@
     <div class="pinned-container" id="scrolly-container">
         
         <div class="media-side" id="media-panel">
-            
             <img src="step1-connection.png" alt="Steel Connection" id="media-1" style="opacity: 1;">
-            
             <video src="step2-analysis.mp4" id="media-2" style="opacity: 0;" autoplay loop muted playsinline></video>
-            
             <img src="step3-bom-report.png" alt="BOM Report" id="media-3" style="opacity: 0;">
-
         </div>
 
         <div class="text-side" id="text-panel">
-            
             <div class="scroll-step" id="step-1">
                 <h2>1. Complex Geometry Made Simple</h2>
                 <p>Traditional hand calculations fall short for complex joints. Import your geometry directly from standard CAD software and visualize the exact node seamlessly.</p>
@@ -106,7 +113,6 @@
                 <h2>3. Automated Reporting</h2>
                 <p>Generate precise Bills of Materials and export comprehensive, university-verified PDF reports in seconds to keep your engineering teams ahead of schedule.</p>
             </div>
-
         </div>
     </div>
 
@@ -122,16 +128,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. Initialize Smooth Scrolling
         const lenis = new Lenis()
         lenis.on('scroll', (e) => { ScrollTrigger.update(); })
         gsap.ticker.add((time) => { lenis.raf(time * 1000) })
         gsap.ticker.lagSmoothing(0)
 
-        // 2. Register ScrollTrigger Plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // 3. Pin the Left Media Panel so it stays on screen while right side scrolls
         ScrollTrigger.create({
             trigger: "#scrolly-container",
             start: "top top",
@@ -139,14 +142,13 @@
             pin: "#media-panel",
         });
 
-        // 4. Logic to switch images/videos when a new text block enters the screen
         const steps = gsap.utils.toArray('.scroll-step');
         const medias = ['#media-1', '#media-2', '#media-3'];
 
         steps.forEach((step, i) => {
             ScrollTrigger.create({
                 trigger: step,
-                start: "top center", // Trigger when the top of the text block hits the center of the screen
+                start: "top center",
                 end: "bottom center",
                 onEnter: () => updateMediaAndText(i, step),
                 onEnterBack: () => updateMediaAndText(i, step),
@@ -154,11 +156,11 @@
         });
 
         function updateMediaAndText(index, stepElement) {
-            // Light up the active text, dim the others
+            // Light up active text
             steps.forEach(s => s.classList.remove('active'));
             stepElement.classList.add('active');
 
-            // Crossfade the images/videos
+            // Crossfade media
             medias.forEach((mediaId, i) => {
                 if(i === index) {
                     gsap.to(mediaId, {opacity: 1, duration: 0.5, ease: "power2.inOut"});
@@ -166,6 +168,17 @@
                     gsap.to(mediaId, {opacity: 0, duration: 0.5, ease: "power2.inOut"});
                 }
             });
+
+            // LOGIC FOR THE SWAPPING LAYOUT
+            if (index === 1) { 
+                // Step 2: Slide Media to the Right, Text to the Left
+                gsap.to('#media-panel', { x: "100%", duration: 0.8, ease: "power3.inOut" });
+                gsap.to('#text-panel', { x: "-100%", duration: 0.8, ease: "power3.inOut" });
+            } else { 
+                // Steps 1 & 3: Slide back to default (Media Left, Text Right)
+                gsap.to('#media-panel', { x: "0%", duration: 0.8, ease: "power3.inOut" });
+                gsap.to('#text-panel', { x: "0%", duration: 0.8, ease: "power3.inOut" });
+            }
         }
     </script>
 </body>
