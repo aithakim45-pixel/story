@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gulf Structural Design - Workflow</title>
+    <style>
+        /* Reset and basic typography */
+        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        h1, h2, p { margin: 0; }
+
+        /* Lenis required CSS for smooth scrolling */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        /* General Layout */
+        .intro-outro-section { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        
+        /* Scrollytelling Container */
+        .pinned-container {
+            display: flex;
+            width: 100%;
+            position: relative;
+        }
+
+        /* LEFT SIDE: Fixed Media */
+        .media-side {
+            width: 50%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111111;
+        }
+
+        /* Styling for your custom media */
+        .media-side img, .media-side video {
+            position: absolute;
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* RIGHT SIDE: Scrolling Text */
+        .text-side {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scroll-step {
+            height: 100vh; /* Each text block takes up exactly one screen height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            opacity: 0.3; /* Default faded state */
+            transition: opacity 0.4s ease;
+        }
+
+        /* Class added by JavaScript when scrolled into view */
+        .scroll-step.active { opacity: 1; }
+
+        .scroll-step h2 { font-size: 2.5rem; margin-bottom: 20px; color: #ff5e14; /* Brand Accent Color */ }
+        .scroll-step p { font-size: 1.2rem; line-height: 1.6; color: #e0e0e0; }
+    </style>
+</head>
+<body>
+
+    <section class="intro-outro-section">
+        <div style="text-align: center;">
+            <h1>Advanced Structural Design</h1>
+            <p style="margin-top: 10px; color: #888;">Scroll down to explore the workflow</p>
+        </div>
+    </section>
+
+    <div class="pinned-container" id="scrolly-container">
+        
+        <div class="media-side" id="media-panel">
+            
+            <img src="step1-connection.png" alt="Steel Connection" id="media-1" style="opacity: 1;">
+            
+            <video src="step2-analysis.mp4" id="media-2" style="opacity: 0;" autoplay loop muted playsinline></video>
+            
+            <img src="step3-bom-report.png" alt="BOM Report" id="media-3" style="opacity: 0;">
+
+        </div>
+
+        <div class="text-side" id="text-panel">
+            
+            <div class="scroll-step" id="step-1">
+                <h2>1. Complex Geometry Made Simple</h2>
+                <p>Traditional hand calculations fall short for complex joints. Import your geometry directly from standard CAD software and visualize the exact node seamlessly.</p>
+            </div>
+
+            <div class="scroll-step" id="step-2">
+                <h2>2. Code-Compliant Analysis</h2>
+                <p>Apply structural loads and instantly see the stress gradients, deformation, and bolt forces using advanced CBFEM technology.</p>
+            </div>
+
+            <div class="scroll-step" id="step-3">
+                <h2>3. Automated Reporting</h2>
+                <p>Generate precise Bills of Materials and export comprehensive, university-verified PDF reports in seconds to keep your engineering teams ahead of schedule.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <section class="intro-outro-section">
+        <div style="text-align: center;">
+            <h2 style="margin-bottom: 30px;">Ready to elevate your designs?</h2>
+            <a href="mailto:support@gsdidea.ae" style="padding: 15px 30px; background: #ff5e14; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Contact Support</a>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // 1. Initialize Smooth Scrolling
+        const lenis = new Lenis()
+        lenis.on('scroll', (e) => { ScrollTrigger.update(); })
+        gsap.ticker.add((time) => { lenis.raf(time * 1000) })
+        gsap.ticker.lagSmoothing(0)
+
+        // 2. Register ScrollTrigger Plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 3. Pin the Left Media Panel so it stays on screen while right side scrolls
+        ScrollTrigger.create({
+            trigger: "#scrolly-container",
+            start: "top top",
+            end: "bottom bottom",
+            pin: "#media-panel",
+        });
+
+        // 4. Logic to switch images/videos when a new text block enters the screen
+        const steps = gsap.utils.toArray('.scroll-step');
+        const medias = ['#media-1', '#media-2', '#media-3'];
+
+        steps.forEach((step, i) => {
+            ScrollTrigger.create({
+                trigger: step,
+                start: "top center", // Trigger when the top of the text block hits the center of the screen
+                end: "bottom center",
+                onEnter: () => updateMediaAndText(i, step),
+                onEnterBack: () => updateMediaAndText(i, step),
+            });
+        });
+
+        function updateMediaAndText(index, stepElement) {
+            // Light up the active text, dim the others
+            steps.forEach(s => s.classList.remove('active'));
+            stepElement.classList.add('active');
+
+            // Crossfade the images/videos
+            medias.forEach((mediaId, i) => {
+                if(i === index) {
+                    gsap.to(mediaId, {opacity: 1, duration: 0.5, ease: "power2.inOut"});
+                } else {
+                    gsap.to(mediaId, {opacity: 0, duration: 0.5, ease: "power2.inOut"});
+                }
+            });
+        }
+    </script>
+</body>
+</html>
