@@ -73,10 +73,10 @@
     </section>
 
     <div class="use-case-grid">
-        <div class="grid-card"><img src="Beam-to-column-connections-1.png" alt="Image 1"><div class="card-label">BEAM TO COLUMN</div></div>
+        <div class="grid-card"><img src="Beam-to-column-connections-1" alt="Image 1"><div class="card-label">BEAM TO COLUMN</div></div>
         <div class="grid-card"><img src="FOOTINGS-ANCHORINGS-ANCHOR-BOLTS-1.png" alt="Image 2"><div class="card-label">FOOTINGS & ANCHORING</div></div>
         <div class="grid-card"><img src="3D-loaded-steel-connections.png" alt="Image 3"><div class="card-label">3D LOADED CONNECTIONS</div></div>
-        <div class="grid-card"><img src="HSS-Bracing-Connections-and-trusses-1.png" alt="Image 4"><div class="card-label">HSS BRACING</div></div>
+        <div class="grid-card"><img src="HSS-Bracing-Connections-and-trusses.png" alt="Image 4"><div class="card-label">HSS BRACING</div></div>
     </div>
 
     <section class="feature-row reverse from-right">
@@ -136,7 +136,12 @@
             gsap.set(text, { y: 80, opacity: 0 });
             
             const tl = gsap.timeline({ 
-                scrollTrigger: { trigger: row, start: "top 70%", toggleActions: "play none none reverse" } 
+                scrollTrigger: { 
+                    trigger: row, 
+                    start: "top 75%", 
+                    end: "bottom 25%", 
+                    toggleActions: "play reverse play reverse" 
+                } 
             });
             
             tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 2.5, ease: "power2.out" })
@@ -146,8 +151,13 @@
         gsap.utils.toArray('.use-case-grid').forEach((grid) => {
             const cards = grid.querySelectorAll('.grid-card');
             gsap.to(cards, {
-                scrollTrigger: { trigger: grid, start: "top 85%", toggleActions: "play none none reverse" },
-                y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out"
+                scrollTrigger: { 
+                    trigger: grid, 
+                    start: "top 85%", 
+                    end: "bottom 15%", 
+                    toggleActions: "play reverse play reverse" 
+                },
+                y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out"
             });
         });
 
