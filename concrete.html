@@ -17,18 +17,22 @@
         .hero-desc { color: #aaaaaa; font-size: 1.2rem; max-width: 800px; margin-bottom: 40px; line-height: 1.6; }
         .scroll-prompt { color: #ff5e14; font-weight: bold; letter-spacing: 1px; font-size: 1.1rem; text-decoration: none; transition: 0.3s; cursor: pointer; }
         .scroll-prompt:hover { opacity: 0.7; transform: translateY(5px); }
-        
-        .feature-row { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10%; gap: 5%; overflow: hidden; }
+        .feature-row { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10% 20px 10%; gap: 5%; overflow: hidden; }
         .feature-row.reverse { flex-direction: row-reverse; }
-        
         .media-box { flex: 1; aspect-ratio: 16/9; display: flex; justify-content: center; background: #111; border-radius: 8px; overflow: hidden; box-shadow: 0px 10px 30px rgba(0,0,0,0.5); }
         .media-box iframe { width: 100%; height: 100%; object-fit: cover; border: none; }
-        
         .text-box { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .text-box h2 { font-size: 3rem; margin-bottom: 20px; color: #ffffff; }
         .text-box h2 span { color: #ff5e14; }
         .text-box p { font-size: 1.3rem; line-height: 1.6; color: #cccccc; }
-        
+
+        .use-case-grid { padding: 0 10% 100px 10%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .grid-card { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 4/3; box-shadow: 0px 10px 20px rgba(0,0,0,0.5); opacity: 0; transform: translateY(30px); }
+        .grid-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .grid-card:hover img { transform: scale(1.08); }
+        .card-label { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 30px 15px 15px 15px; box-sizing: border-box; font-size: 1rem; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        @media (max-width: 1000px) { .use-case-grid { grid-template-columns: repeat(2, 1fr); } }
+
         .main-nav { position: fixed; top: 0; left: 0; width: 100%; padding: 20px 5%; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-logo { color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1.5rem; letter-spacing: 2px; }
         .nav-links a { color: #cccccc; text-decoration: none; margin-left: 30px; font-size: 1.1rem; transition: color 0.3s; text-transform: uppercase; font-weight: 500; }
@@ -55,29 +59,37 @@
     </section>
 
     <section id="first-section" class="feature-row from-left">
-        <div class="media-box reveal-media">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
-        </div>
+        <div class="media-box reveal-media"><iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe></div>
         <div class="text-box reveal-text">
             <h2>IDEA STATICA <span>DETAIL</span></h2>
             <p>Design and code-check concrete walls and D-region shapes to analyze real structural behavior. Use templates or DXF imports for pass/fail results on any geometry and perform ULS/SLS checks.</p>
         </div>
     </section>
 
+    <div class="use-case-grid">
+        <div class="grid-card"><img src="your-image-17.jpg" alt="Con 1"><div class="card-label">CORBELS</div></div>
+        <div class="grid-card"><img src="your-image-18.jpg" alt="Con 2"><div class="card-label">WALL OPENINGS</div></div>
+        <div class="grid-card"><img src="your-image-19.jpg" alt="Con 3"><div class="card-label">DAPPED ENDS</div></div>
+        <div class="grid-card"><img src="your-image-20.jpg" alt="Con 4"><div class="card-label">PRESTRESSED</div></div>
+    </div>
+
     <section class="feature-row reverse from-right">
-        <div class="media-box reveal-media">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
-        </div>
+        <div class="media-box reveal-media"><iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe></div>
         <div class="text-box reveal-text">
             <h2>3D <span>ANCHORING</span> DESIGN</h2>
-            <p>Design precise steel-to-concrete anchoring in 3D with real reinforcement, stiffness optimization, and Eurocode compliance. Model concrete blocks and visualize reinforcement behavior with non-linear CSFM calculations.</p>
+            <p>Design precise steel-to-concrete anchoring in 3D with real reinforcement, stiffness optimization, and Eurocode compliance.</p>
         </div>
     </section>
 
+    <div class="use-case-grid">
+        <div class="grid-card"><img src="your-image-21.jpg" alt="Anch 1"><div class="card-label">ANCHOR BOLTS</div></div>
+        <div class="grid-card"><img src="your-image-22.jpg" alt="Anch 2"><div class="card-label">CONCRETE BLOCK</div></div>
+        <div class="grid-card"><img src="your-image-23.jpg" alt="Anch 3"><div class="card-label">REINFORCEMENT</div></div>
+        <div class="grid-card"><img src="your-image-24.jpg" alt="Anch 4"><div class="card-label">SHEAR LUGS</div></div>
+    </div>
+
     <section class="feature-row from-left">
-        <div class="media-box reveal-media">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
-        </div>
+        <div class="media-box reveal-media"><iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe></div>
         <div class="text-box reveal-text">
             <h2>STREAMLINED <span>WORKFLOW</span></h2>
             <p>From connection to reinforcement. Seamlessly export your anchoring model to apply rebar, perform non-linear analysis to identify failures, optimize your materials, and generate comprehensive reports.</p>
@@ -96,31 +108,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
-        if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0, 0);
-
-        const lenis = new Lenis();
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
-        gsap.registerPlugin(ScrollTrigger);
+        if (history.scrollRestoration) { history.scrollRestoration = 'manual'; } window.scrollTo(0, 0);
+        const lenis = new Lenis(); lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); }); gsap.ticker.lagSmoothing(0); gsap.registerPlugin(ScrollTrigger);
 
         gsap.utils.toArray('.feature-row').forEach((row) => {
-            const media = row.querySelector('.reveal-media');
-            const text = row.querySelector('.reveal-text');
-            const fromLeft = row.classList.contains('from-left');
-            
-            gsap.set(media, { x: fromLeft ? -200 : 200, scale: 0.85, opacity: 0 });
-            gsap.set(text, { y: 80, opacity: 0 });
-            
-            const tl = gsap.timeline({ 
-                scrollTrigger: { trigger: row, start: "top 70%", toggleActions: "play none none reverse" } 
-            });
-            
-            tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 2.5, ease: "power2.out" })
-              .to(text, { y: 0, opacity: 1, duration: 2.0, ease: "power2.out" }, "-=1.8");
+            const media = row.querySelector('.reveal-media'); const text = row.querySelector('.reveal-text'); const fromLeft = row.classList.contains('from-left');
+            gsap.set(media, { x: fromLeft ? -200 : 200, scale: 0.85, opacity: 0 }); gsap.set(text, { y: 80, opacity: 0 });
+            const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 70%", toggleActions: "play none none reverse" } });
+            tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 2.5, ease: "power2.out" }).to(text, { y: 0, opacity: 1, duration: 2.0, ease: "power2.out" }, "-=1.8");
         });
 
+        gsap.utils.toArray('.use-case-grid').forEach((grid) => {
+            const cards = grid.querySelectorAll('.grid-card');
+            gsap.to(cards, { scrollTrigger: { trigger: grid, start: "top 85%", toggleActions: "play none none reverse" }, y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out" });
+        });
         window.addEventListener('load', () => { ScrollTrigger.refresh(); });
     </script>
 </body>
