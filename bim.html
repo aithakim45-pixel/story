@@ -20,8 +20,9 @@
         
         .feature-row { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10%; gap: 5%; overflow: hidden; }
         .feature-row.reverse { flex-direction: row-reverse; }
+        
         .media-box { flex: 1; aspect-ratio: 16/9; display: flex; justify-content: center; background: #111; border-radius: 8px; overflow: hidden; box-shadow: 0px 10px 30px rgba(0,0,0,0.5); }
-        .media-box img, .media-box iframe { width: 100%; height: 100%; object-fit: cover; border: none; }
+        .media-box iframe { width: 100%; height: 100%; object-fit: cover; border: none; }
         
         .text-box { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .text-box h2 { font-size: 3rem; margin-bottom: 20px; color: #ffffff; }
@@ -55,7 +56,7 @@
 
     <section id="first-section" class="feature-row from-left">
         <div class="media-box reveal-media">
-            <iframe src="https://www.youtube.com/embed/gbFwTCMBHEw?autoplay=1&mute=1&loop=1&playlist=gbFwTCMBHEw&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
         </div>
         <div class="text-box reveal-text">
             <h2>IDEA STATICA <span>CHECKBOT</span></h2>
@@ -64,7 +65,9 @@
     </section>
 
     <section class="feature-row reverse from-right">
-        <div class="media-box reveal-media"><img src="cloud-viewer.png" alt="Viewer Cloud App"></div>
+        <div class="media-box reveal-media">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+        </div>
         <div class="text-box reveal-text">
             <h2>FREE CLOUD <span>VIEWER</span></h2>
             <p>Need to share a project with a colleague without a license? Simply send them the connection file to review dimensions, loads, and materials.</p>
@@ -72,7 +75,9 @@
     </section>
 
     <section class="feature-row from-left">
-        <div class="media-box reveal-media"><img src="checkbot-free.png" alt="Checkbot Free Sharing"></div>
+        <div class="media-box reveal-media">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID_HERE&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+        </div>
         <div class="text-box reveal-text">
             <h2>CHECKBOT <span>FREE</span></h2>
             <p>Collaborating with someone without a license? Checkbot Free allows them to export and share essential data directly from their CAD software.</p>
@@ -104,11 +109,16 @@
             const media = row.querySelector('.reveal-media');
             const text = row.querySelector('.reveal-text');
             const fromLeft = row.classList.contains('from-left');
-            gsap.set(media, { x: fromLeft ? -150 : 150, scale: 0.85, opacity: 0 });
-            gsap.set(text, { y: 60, opacity: 0 });
-            const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 85%", toggleActions: "play none none reverse" } });
-            tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 1.4, ease: "power4.out" })
-              .to(text, { y: 0, opacity: 1, duration: 1.2, ease: "power4.out" }, "-=1");
+            
+            gsap.set(media, { x: fromLeft ? -200 : 200, scale: 0.85, opacity: 0 });
+            gsap.set(text, { y: 80, opacity: 0 });
+            
+            const tl = gsap.timeline({ 
+                scrollTrigger: { trigger: row, start: "top 70%", toggleActions: "play none none reverse" } 
+            });
+            
+            tl.to(media, { x: 0, scale: 1, opacity: 1, duration: 2.5, ease: "power2.out" })
+              .to(text, { y: 0, opacity: 1, duration: 2.0, ease: "power2.out" }, "-=1.8");
         });
 
         window.addEventListener('load', () => { ScrollTrigger.refresh(); });
